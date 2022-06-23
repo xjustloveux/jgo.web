@@ -1,0 +1,55 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.3.0
+      with:
+          node-version: '18'
+        
+    - name: Angular Install
+      working-directory: ./angular
+      run: npm install
+
+    - name: Angular Build
+      working-directory: ./angular
+      run: npm run build
+        
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+        
+    - name: Go Install
+      run: go install github.com/goreleaser/goreleaser@latest
+        
+    - name: Go Get
+      run: go get -v
+        
+    - name: Go Test
+      run: go test -v ./...
+
+    - name: Go Build
+      run: goreleaser release --snapshot --rm-dist
+        
+    - name: Deploy to Server
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PWD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ${{ secrets.FTP_PROTOCOL }}
+          local-dir: dist/
+          server-dir: ${{ secrets.FTP_DIR }}
