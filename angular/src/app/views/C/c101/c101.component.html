@@ -1,0 +1,49 @@
+<div class="card my-5">
+  <div class="card-body p-5" [formGroup]="form">
+    <h4 class="fw-bold text-center mb-5">JGo Ver</h4>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="row">
+          <label class="col-3 form-label">from:</label>
+          <div class="col-9">
+            <select class="form-control" formControlName="verS" [ngClass]="isInvalid('verS')">
+              <option value="">select version</option>
+              <option [value]="item.Ver" *ngFor="let item of verSList">{{item.Name}}</option>
+            </select>
+            <div class="invalid-feedback">{{errorMsg('verS')}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="form-group row">
+          <label class="col-3 form-label">to:</label>
+          <div class="col-9">
+            <select class="form-control" formControlName="verE" [ngClass]="isInvalid('verE')">
+              <option value="">select version</option>
+              <option [value]="item.Ver" *ngFor="let item of verEList">{{item.Name}}</option>
+            </select>
+            <div class="invalid-feedback">{{errorMsg('verE')}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-outline-dark mx-auto d-block px-5" (click)="query()">Query</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card my-5">
+  <div class="card-body p-5">
+    <h4 class="fw-bold text-center mb-3">Update Ver Guides</h4>
+    <ng-container *ngFor="let item of verUpdateList; let idx = index">
+      <div class="row description" *ngIf="item.Content !== ''">
+        <div class="col-md-1"><b>{{idx + 1}}.</b></div>
+        <div class="col-md-11" [innerHTML]="item.Content | sanitizeHtml"></div>
+      </div>
+    </ng-container>
+    <div class="description  text-center" *ngIf="noneUpdateText !== ''">{{noneUpdateText}}</div>
+  </div>
+</div>
+<div class="my-5">
+  For detailed change log, please refer to <a href="https://github.com/xjustloveux/jgo/blob/master/CHANGELOG.md">CHANGELOG.md</a>
+</div>

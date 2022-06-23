@@ -1,0 +1,5 @@
+{
+  "jEnv": "prd",
+  "autoStartCron": true,
+  "port": 8080
+}

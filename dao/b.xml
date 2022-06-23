@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao>
+    <select id="B.QueryContent">
+        SELECT TITLE, DESCRIPTION, CODE, NOTE FROM PKG_CONTENT
+        <where>PRO_ID = @{PRO_ID}</where>
+        <orderBy>SORT</orderBy>
+    </select>
+    <select id="B102.QueryLog">
+        SELECT NAME AS Name, ID AS Id, CT_DATE AS CtDate FROM JOB_LOG
+        <where>NAME = @{NAME}</where>
+        <orderBy>CT_DATE DESC</orderBy>
+    </select>
+</dao>

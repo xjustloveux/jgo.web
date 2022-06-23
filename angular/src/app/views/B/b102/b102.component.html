@@ -1,0 +1,42 @@
+<app-pkg-content [content]="content"></app-pkg-content>
+<div class="pb-5">
+  <h4 class="fw-bold">DB Log</h4>
+  <div class="py-2">
+    <div class="card mb-2">
+      <div class="card-header"><h5>Job001</h5></div>
+      <div class="card-body">
+        <div class="log">
+          <ng-container *ngFor="let item of log.job001">
+            <label><b>NAME：</b>{{item.Name}}, <b>ID：</b>{{item.Id}}, <b>CT_DATE：</b>{{item.CtDate}}</label>
+            <br>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h5>Job002</h5></div>
+      <div class="card-body">
+        <div class="row" [formGroup]="form">
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-3 form-label">id:</label>
+              <div class="col-9">
+                <input type="text" class="form-control" formControlName="id" [ngClass]="isInvalid('id')">
+                <div class="invalid-feedback">{{errorMsg('id')}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button class="btn btn-outline-dark px-5" (click)="trigger()">Trigger</button>
+          </div>
+        </div>
+        <div class="log">
+          <ng-container *ngFor="let item of log.job002">
+            <label><b>NAME：</b>{{item.Name}}, <b>ID：</b>{{item.Id}}, <b>CT_DATE：</b>{{item.CtDate}}</label>
+            <br>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

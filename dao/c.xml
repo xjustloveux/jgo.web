@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao>
+    <select id="C101.QueryVerList">
+        SELECT * FROM VER_HS
+        <where>
+            <if test="!nil(VER) and VER != ''">
+                VER > @{VER}
+            </if>
+        </where>
+        <orderBy>VER DESC</orderBy>
+    </select>
+    <select id="C101.QueryVerUpdate">
+        SELECT CONTENT FROM VER_UPDATE
+        <where>
+            VER_S >= @{verS} AND VER_S <![CDATA[ < ]]> @{verE} AND (VER_E IS NULL OR VER_E >= @{verE})
+        </where>
+        <orderBy>SEQ</orderBy>
+    </select>
+</dao>

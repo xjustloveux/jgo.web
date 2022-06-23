@@ -1,0 +1,18 @@
+{
+  "debug": true,
+  "schedule": [
+    {
+      "Name": "Sch001",
+      "Cron": "2-43/13 1/5,30/3 * * * ? *",
+      "JobName": "job001"
+    },
+    {
+      "Name": "Sch002",
+      "Cron": "0 */5 * * * ? *",
+      "JobName": "job002",
+      "JobData": {
+        "id": "SYSTEM"
+      }
+    }
+  ]
+}

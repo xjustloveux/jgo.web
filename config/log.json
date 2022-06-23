@@ -1,0 +1,52 @@
+{
+  "params": {
+    "path": "../log"
+  },
+  "appender": {
+    "sys": {
+      "level": "Error",
+      "output": {
+        "p": "${path}/sys/%yyyy-%MM-%dd/system.log",
+        "linkName": "${path}/sys/system"
+      }
+    },
+    "web": {
+      "output": {
+        "p": "${path}/web/%yyyy-%MM-%dd/website.log",
+        "linkName": "${path}/web/website"
+      }
+    },
+    "job": {
+      "output": {
+        "p": "${path}/job/%yyyy-%MM-%dd/${Program}.log",
+        "linkName": "${path}/job/${Program}"
+      }
+    }
+  },
+  "logs": [
+    {
+      "program": [
+        "pkg:main"
+      ],
+      "appender": [
+        "console", "sys"
+      ]
+    },
+    {
+      "program": [
+        "pkg:web"
+      ],
+      "appender": [
+        "console", "sys", "web"
+      ]
+    },
+    {
+      "program": [
+        "job001", "job002"
+      ],
+      "appender": [
+        "sys", "job"
+      ]
+    }
+  ]
+}
