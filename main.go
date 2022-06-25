@@ -21,6 +21,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	jsql.SubscribeSql(sqlLog)
 	job.CreateJob()
 	if asc, err := global.Conf.Bool("autoStartCron"); err != nil {
 		jlog.Error(err)

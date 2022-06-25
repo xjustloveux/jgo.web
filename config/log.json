@@ -6,13 +6,13 @@
     "sys": {
       "level": "Error",
       "output": {
-        "p": "${path}/sys/%yyyy-%MM-%dd/system.log",
+        "p": "${path}/sys/%yyyy-%MM-%dd.log",
         "linkName": "${path}/sys/system"
       }
     },
     "web": {
       "output": {
-        "p": "${path}/web/%yyyy-%MM-%dd/website.log",
+        "p": "${path}/web/%yyyy-%MM-%dd.log",
         "linkName": "${path}/web/website"
       }
     },
@@ -20,6 +20,12 @@
       "output": {
         "p": "${path}/job/%yyyy-%MM-%dd/${Program}.log",
         "linkName": "${path}/job/${Program}"
+      }
+    },
+    "sql": {
+      "output": {
+        "p": "${path}/sql/%yyyy-%MM-%dd.log",
+        "linkName": "${path}/sql/sql"
       }
     }
   },
@@ -46,6 +52,14 @@
       ],
       "appender": [
         "sys", "job"
+      ]
+    },
+    {
+      "program": [
+        "sql"
+      ],
+      "appender": [
+        "sql"
       ]
     }
   ]

@@ -26,4 +26,14 @@
       <label>go get github.com/xjustloveux/jgo</label>
     </div>
   </div>
+  <div class="py-5">
+    <h1 class="fw-bold">API</h1>
+    <hr>
+    <div>
+      <ng-container *ngFor="let item of apiList; let idx = index">
+        <ng-container *ngIf="idx > 0"> , </ng-container>
+        <a [href]="item.url">{{item.name}}</a>
+      </ng-container>
+    </div>
+  </div>
 </div>

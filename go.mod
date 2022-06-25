@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/denisenkom/go-mssqldb v0.12.2
 	github.com/gin-gonic/gin v1.8.0
-	github.com/xjustloveux/jgo v1.1.0
+	github.com/xjustloveux/jgo v1.1.3
 )
 
 require (
