@@ -49,6 +49,7 @@ func CreateRouter(r *gin.Engine) {
 					router.StaticFile(file, fmt.Sprint(dist, file))
 				}
 			}
+			router.StaticFile("./sitemap.xml", "./sitemap.xml")
 			router.Static("/assets", fmt.Sprint(dist, "/assets"))
 		}
 		router.NoRoute(func(c *gin.Context) {
