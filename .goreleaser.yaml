@@ -24,6 +24,7 @@ archives:
       - config/*
       - dao/*
       - website/*
+      - sitemap.xml
 checksum:
   name_template: 'checksums.txt'
 snapshot:
