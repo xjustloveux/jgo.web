@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {B101Service} from "./b101.service";
 import {PkgContentClass} from '../../../model/pkgContentClass';
 import Swal from 'sweetalert2';
@@ -15,7 +16,9 @@ export class B101Component implements OnInit {
 
   constructor(
     public service: B101Service,
+    public title: Title
   ) {
+    this.title.setTitle('jsql | JGo');
     this.service.queryContent(this.proId).then((res) => {
       if (res.success) {
         this.content = res.content;

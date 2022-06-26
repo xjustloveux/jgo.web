@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {B102Service} from './b102.service';
 import {PkgContentClass} from '../../../model/pkgContentClass';
 import Swal from 'sweetalert2';
@@ -29,8 +30,10 @@ export class B102Component implements OnInit {
 
   constructor(
     public service: B102Service,
-    private fb: FormBuilder,
+    public title: Title,
+    private fb: FormBuilder
   ) {
+    this.title.setTitle('jcron | JGo');
     this.service.queryContent(this.proId).then((res) => {
       if (res.success) {
         this.content = res.content;

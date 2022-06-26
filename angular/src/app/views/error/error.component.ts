@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-error',
@@ -8,7 +9,11 @@ import {Router} from '@angular/router';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(
+    public title: Title,
+    private router: Router
+  ) {
+    this.title.setTitle('Error | JGo');
   }
 
   ngOnInit(): void {

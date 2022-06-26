@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {A101Service} from './a101.service';
 
 @Component({
@@ -23,7 +24,9 @@ export class A101Component implements OnInit {
 
   constructor(
     public service: A101Service,
+    public title: Title
   ) {
+    this.title.setTitle('JGo | Golang');
   }
 
   ngOnInit(): void {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {Title} from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import {C101Service} from './c101.service';
 import {VerHsClass} from "../../../model/verHsClass";
@@ -30,8 +31,10 @@ export class C101Component implements OnInit {
 
   constructor(
     public service: C101Service,
-    private fb: FormBuilder,
+    public title: Title,
+    private fb: FormBuilder
   ) {
+    this.title.setTitle('Update | JGo');
     this.form = this.fb.group({
       verS: ['', [Validators.required]],
       verE: ['', [Validators.required]],
