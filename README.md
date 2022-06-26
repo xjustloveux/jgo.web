@@ -92,8 +92,8 @@ npm run start
 | SEQ         | true     | int      |      | true  |
 | PRO_ID      | true     | nvarchar | 10   | false |
 | TITLE       | false    | nvarchar | 50   | false |
-| DESCRIPTION | false    | nvarchar | 1000 | false |
-| CODE        | false    | nvarchar | 1000 | false |
+| DESCRIPTION | false    | nvarchar | 2000 | false |
+| CODE        | false    | nvarchar | 2000 | false |
 | NOTE        | false    | nvarchar | 500  | false |
 | SORT        | false    | int      |      | false |
 
