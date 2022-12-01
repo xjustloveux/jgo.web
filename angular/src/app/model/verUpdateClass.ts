@@ -1,13 +1,13 @@
 export class VerUpdateClass {
-  Seq: number;
-  VerS: number;
-  VerE: number;
-  Content: string;
+  seq: number;
+  ver_s: number;
+  ver_e: number;
+  content: string;
 
   constructor(data: any) {
-    this.Seq = data.Seq;
-    this.VerS = data.VerS;
-    this.VerE = data.VerE;
-    this.Content = data.Content;
+    this.seq = data.seq;
+    this.ver_s = data.ver_s;
+    this.ver_e = data.ver_e;
+    this.content = data.content;
   }
 }

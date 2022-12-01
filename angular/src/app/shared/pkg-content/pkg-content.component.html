@@ -1,8 +1,8 @@
 <div class="pt-5">
   <div class="pb-5" *ngFor="let item of content">
-    <h4 class="fw-bold" *ngIf="item.Title !== ''">{{item.Title}}</h4>
-    <div class="description" [innerHTML]="item.Description | sanitizeHtml" *ngIf="item.Description !== ''"></div>
-    <div class="code" [innerHTML]="item.Code | sanitizeHtml" *ngIf="item.Code !== ''"></div>
-    <div class="note"><small *ngIf="item.Note !== ''"><i class="fw-bold">note: </i>{{item.Note}}</small></div>
+    <h4 class="fw-bold" *ngIf="item.title !== ''">{{item.title}}</h4>
+    <div class="description" [innerHTML]="item.description | sanitizeHtml" *ngIf="item.description !== ''"></div>
+    <div class="code" [innerHTML]="item.code | sanitizeHtml" *ngIf="item.code !== ''"></div>
+    <div class="note"><small *ngIf="item.note !== ''"><i class="fw-bold">note: </i>{{item.note}}</small></div>
   </div>
 </div>

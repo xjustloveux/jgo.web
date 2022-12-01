@@ -13,7 +13,7 @@ export class B101Service {
 
   queryContent(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/' + id + '/QueryContent', true).then((res: any) => {
+      this.http.get('/b/' + id, true).then((res: any) => {
         resolve(res);
       });
     });

@@ -4,8 +4,25 @@
 
 package global
 
-import "github.com/xjustloveux/jgo/jconf"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
+	"github.com/xjustloveux/jgo/jconf"
+	"os"
+)
 
 var (
-	Conf = jconf.New()
+	Dev      = os.Getenv("jEnv") == "dev"
+	Conf     = jconf.New()
+	Router   = getRouter()
+	Validate = validator.New()
 )
+
+func getRouter() *gin.Engine {
+
+	if !Dev {
+
+		gin.SetMode(gin.ReleaseMode)
+	}
+	return gin.Default()
+}

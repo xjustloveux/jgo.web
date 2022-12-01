@@ -5,34 +5,30 @@
 package job
 
 import (
+	"github.com/xjustloveux/jgo.web/model/jgopostgresqlmod"
+	"github.com/xjustloveux/jgo.web/service/jgopostgresqlsrv"
+	"github.com/xjustloveux/jgo/jcast"
 	"github.com/xjustloveux/jgo/jlog"
-	"github.com/xjustloveux/jgo/jsql"
-	"reflect"
 	"time"
 )
 
-type job002 struct {
-	name string
-}
-
-func (j *job002) Init() {
-	j.name = reflect.TypeOf(j).Elem().Name()
-}
+type job002 struct{}
 
 func (j *job002) Name() string {
-	return j.name
+
+	return "job002"
 }
 
 func (j *job002) Run(m map[string]interface{}) {
-	jlog.Info(j.name, " Start")
-	agent := &jsql.TableAgent{Table: "JOB_LOG"}
-	if err := agent.AddColumn("NAME", j.name, "ID", m["id"], "CT_DATE", time.Now()); err != nil {
+
+	jlog.Info(j.Name(), " start")
+	if _, err := jgopostgresqlsrv.JobLog.Create(jgopostgresqlmod.JobLog{
+		Name:   j.Name(),
+		Id:     jcast.String(m["id"]),
+		CtDate: time.Now(),
+	}); err != nil {
+
 		jlog.Error(err)
-		return
 	}
-	if _, err := agent.Insert(); err != nil {
-		jlog.Error(err)
-		return
-	}
-	jlog.Info(j.name, " End")
+	jlog.Info(j.Name(), " end")
 }

@@ -1,11 +1,11 @@
 export class MenuClass {
-  PRO_URL: string;
-  PRO_NAME: string;
-  LIST: MenuClass[];
+  url: string;
+  name: string;
+  child: MenuClass[];
 
   constructor(data: any) {
-    this.PRO_URL = data.PRO_URL;
-    this.PRO_NAME = data.PRO_NAME;
-    this.LIST = data.LIST;
+    this.url = data.url;
+    this.name = data.name;
+    this.child = data.child;
   }
 }

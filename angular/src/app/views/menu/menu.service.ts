@@ -13,7 +13,7 @@ export class MenuService {
 
   getMenu(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/Shared/QueryMenu', true).then((res: any) => {
+      this.http.get('/shared/menu', true).then((res: any) => {
         resolve(res);
       });
     });

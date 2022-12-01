@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao>
-    <select id="C101.QueryVerList">
+    <select id="C101.QueryVer">
         SELECT * FROM VER_HS
         <where>
-            <if test="!nil(VER) and VER != ''">
-                VER > @{VER}
+            <if test="!nil(ver)">
+                VER > @{ver}
             </if>
         </where>
         <orderBy>VER DESC</orderBy>

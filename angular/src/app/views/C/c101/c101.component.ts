@@ -43,21 +43,13 @@ export class C101Component implements OnInit {
 
   ngOnInit(): void {
     this.service.queryVerList().then((res) => {
-      if (res.success) {
-        this.verSList = res.list;
-      } else {
-        Swal.fire('Query version list failed!');
-      }
+      this.verSList = res;
     });
     this.form.get('verS')?.valueChanges.subscribe(selectedValue => {
       this.service.queryVerList(selectedValue).then((res) => {
-        if (res.success) {
-          this.verEList = res.list;
-          this.verUpdateList = [];
-          this.form.get('verE')?.setValue('');
-        } else {
-          Swal.fire('Query version list failed!');
-        }
+        this.verEList = res;
+        this.verUpdateList = [];
+        this.form.get('verE')?.setValue('');
       });
     });
   }
@@ -111,12 +103,8 @@ export class C101Component implements OnInit {
       return;
     }
     this.service.queryVerUpdate(this.form.getRawValue()).then((res) => {
-      if (res.success) {
-        this.verUpdateList = res.list;
-        this.noneUpdateText = (this.verUpdateList.length <= 0 ? 'You don\'t need to do anything.' : '');
-      } else {
-        Swal.fire('Query version update failed!');
-      }
+      this.verUpdateList = res;
+      this.noneUpdateText = (this.verUpdateList.length <= 0 ? 'You don\'t need to do anything.' : '');
     });
   }
 }

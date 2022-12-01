@@ -12,7 +12,7 @@ import {LogFileClass} from "../../../model/logFileClass";
 })
 export class B103Component implements OnInit {
 
-  proId = 'B103';
+  proId = 'b103';
   content: PkgContentClass[] = [];
   log: LogFileClass | undefined;
 
@@ -22,18 +22,10 @@ export class B103Component implements OnInit {
   ) {
     this.title.setTitle('jlog | JGo');
     this.service.queryContent(this.proId).then((res) => {
-      if (res.success) {
-        this.content = res.content;
-      } else {
-        Swal.fire('Query content failed!');
-      }
+      this.content = res;
     });
     this.service.queryLog().then((res) => {
-      if (res.success) {
-        this.log = res.list;
-      } else {
-        Swal.fire('Query log failed!');
-      }
+      this.log = res;
     });
   }
 

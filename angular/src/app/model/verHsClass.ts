@@ -1,9 +1,9 @@
 export class VerHsClass {
-  Ver: number;
-  Name: string;
+  ver: number;
+  name: string;
 
   constructor(data: any) {
-    this.Ver = data.Ver;
-    this.Name = data.Name;
+    this.ver = data.ver;
+    this.name = data.name;
   }
 }

@@ -15,11 +15,7 @@ export class MenuComponent implements OnInit {
 
   constructor(public service: MenuService) {
     this.service.getMenu().then((res) => {
-      if (res.success) {
-        this.menu = res.menu;
-      } else {
-        Swal.fire('Load menu failed!');
-      }
+      this.menu = res;
     });
   }
 

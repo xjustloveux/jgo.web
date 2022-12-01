@@ -13,7 +13,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 })
 export class B102Component implements OnInit {
 
-  proId = 'B102';
+  proId = 'b102';
   content: PkgContentClass[] = [];
   log: { job001: JobLogClass[], job002: JobLogClass[] } = {job001: [], job002: []};
   form: FormGroup;
@@ -35,11 +35,7 @@ export class B102Component implements OnInit {
   ) {
     this.title.setTitle('jcron | JGo');
     this.service.queryContent(this.proId).then((res) => {
-      if (res.success) {
-        this.content = res.content;
-      } else {
-        Swal.fire('Query content failed!');
-      }
+      this.content = res;
     });
     this.queryLog('job001');
     this.queryLog('job002');
@@ -95,11 +91,7 @@ export class B102Component implements OnInit {
 
   queryLog(name: 'job001' | 'job002'): void {
     this.service.queryLog(name).then((res) => {
-      if (res.success) {
-        this.log[name] = res.list;
-      } else {
-        Swal.fire('Load content failed!');
-      }
+      this.log[name] = res;
     });
   }
 
@@ -110,12 +102,7 @@ export class B102Component implements OnInit {
       return;
     }
     this.service.trigger(this.form.getRawValue()).then((res) => {
-      if (res.success) {
-        Swal.fire('Trigger success.');
-        this.queryLog('job002');
-      } else {
-        Swal.fire('Query version update failed!');
-      }
+      this.queryLog('job002');
     });
   }
 }

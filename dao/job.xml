@@ -3,26 +3,10 @@
     <delete id="Job001.DeleteLog">
         DELETE FROM JOB_LOG
         <where>
-            CT_DATE <![CDATA[ < ]]> @{TIME}
+            CT_DATE <![CDATA[ < ]]> @{time}
         </where>
     </delete>
     <insert id="Job001.InsertLog">
-        INSERT INTO JOB_LOG (NAME, ID, CT_DATE) VALUES (@{NAME}, @{ID}, @{CT_DATE})
+        INSERT INTO JOB_LOG (NAME, ID, CT_DATE) VALUES (@{name}, @{id}, @{ct_date})
     </insert>
-    <select id="C.QueryVerList">
-        SELECT * FROM VER_HS
-        <where>
-            <if test="!nil(VER) and VER != ''">
-                VER > @{VER}
-            </if>
-        </where>
-        <orderBy>VER DESC</orderBy>
-    </select>
-    <select id="C.QueryVerUpdate">
-        SELECT CONTENT FROM VER_UPDATE
-        <where>
-            VER_S >= @{verS} AND VER_S <![CDATA[ < ]]> @{verE} AND (VER_E IS NULL OR VER_E >= @{verE})
-        </where>
-        <orderBy>SEQ</orderBy>
-    </select>
 </dao>

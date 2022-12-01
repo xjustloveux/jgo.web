@@ -1,0 +1,82 @@
+port: 443
+autoStartCron: true
+dist: ./dist/assets
+db:
+  daoPath: dao/
+  default: JGoPostgreSql
+  dataSource:
+    JGoMySql:
+      type: MySql
+      dsn: MYSQL_DSN
+      dbName: JGO
+    JGoMSSql:
+      type: MSSql
+      dsn: MSSQL_DSN
+      dbName: JGO
+    JGoOracle:
+      type: Oracle
+      dsn: ORACLE_DSN
+      dbName: JGO
+    JGoPostgreSql:
+      type: PostgreSql
+      dsn: POSTGRESQL_DSN
+      dbName: jgo
+cron:
+  schedule:
+    - Name: Sch001
+      Cron: 2-43/13 1/5,30/3 * * * ? *
+      JobName: job001
+    - Name: Sch002
+      Cron: 0 */5 * * * ? *
+      JobName: job002
+      JobData:
+        id: SYSTEM
+log:
+  params:
+    path: ./log
+  appender:
+    sys:
+      level: Error
+      output: 
+        P: ${path}/sys/%yyyy-%MM-%dd.log
+        linkName: ${path}/sys/system
+    web:
+      output:
+        P: ${path}/web/%yyyy-%MM-%dd/${Program}.log
+        linkName: ${path}/web/${Program}
+        maxAge: 7
+    job:
+      output:
+        P: ${path}/job/%yyyy-%MM-%dd/${Program}.log
+        linkName: ${path}/job/${Program}
+        maxAge: 7
+    sql:
+      output:
+        P: ${path}/sql/%yyyy-%MM-%dd.log
+        linkName: ${path}/sql/sql
+        maxAge: 7
+  logs:
+    - program:
+        - pkg:main
+        - validator
+      appender:
+        - sys
+    - program:
+        - sql
+      appender:
+        - sql
+    - program:
+        - a101
+        - b101
+        - b102
+        - b103
+        - c101
+      appender:
+        - sys
+        - web
+    - program:
+        - job001
+        - job002
+      appender:
+        - sys
+        - job

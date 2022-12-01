@@ -1,11 +1,11 @@
 export class LogFileClass {
-  Name: string;
-  Dir: boolean
-  Child: LogFileClass[];
+  name: string;
+  dir: boolean
+  child: LogFileClass[];
 
   constructor(data: any) {
-    this.Name = data.Name;
-    this.Dir = data.Dir;
-    this.Child = data.Child;
+    this.name = data.name;
+    this.dir = data.dir;
+    this.child = data.child;
   }
 }

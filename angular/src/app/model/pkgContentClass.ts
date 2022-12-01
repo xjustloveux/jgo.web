@@ -1,13 +1,13 @@
 export class PkgContentClass {
-  Title: string;
-  Description: string;
-  Code: string;
-  Note: string;
+  title: string;
+  description: string;
+  code: string;
+  note: string;
 
   constructor(data: any) {
-    this.Title = data.Title;
-    this.Description = data.Description;
-    this.Code = data.Code;
-    this.Note = data.Note;
+    this.title = data.title;
+    this.description = data.description;
+    this.code = data.code;
+    this.note = data.note;
   }
 }

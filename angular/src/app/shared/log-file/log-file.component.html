@@ -1,13 +1,13 @@
 <ng-container *ngIf="content !== undefined">
   <div class="p-1">
-    <i-bs name="folder2-open" *ngIf="content.Dir"></i-bs>
-    <i-bs name="file-earmark-text" *ngIf="!content.Dir"></i-bs>
-    <span class="mx-1">{{content.Name}}</span>
+    <i-bs name="folder2-open" *ngIf="content.dir"></i-bs>
+    <i-bs name="file-earmark-text" *ngIf="!content.dir"></i-bs>
+    <span class="mx-1">{{content.name}}</span>
   </div>
-  <div class="d-flex" *ngIf="content.Child.length > 0">
+  <div class="d-flex" *ngIf="content.child.length > 0">
     <div class="w-1rem text-right"></div>
     <div>
-      <app-log-file [content]="item" *ngFor="let item of content.Child"></app-log-file>
+      <app-log-file [content]="item" *ngFor="let item of content.child"></app-log-file>
     </div>
   </div>
 </ng-container>

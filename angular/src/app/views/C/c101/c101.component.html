@@ -8,7 +8,7 @@
           <div class="col-9">
             <select class="form-control" formControlName="verS" [ngClass]="isInvalid('verS')">
               <option value="">select version</option>
-              <option [value]="item.Ver" *ngFor="let item of verSList">{{item.Name}}</option>
+              <option [value]="item.ver" *ngFor="let item of verSList">{{item.name}}</option>
             </select>
             <div class="invalid-feedback">{{errorMsg('verS')}}</div>
           </div>
@@ -20,7 +20,7 @@
           <div class="col-9">
             <select class="form-control" formControlName="verE" [ngClass]="isInvalid('verE')">
               <option value="">select version</option>
-              <option [value]="item.Ver" *ngFor="let item of verEList">{{item.Name}}</option>
+              <option [value]="item.ver" *ngFor="let item of verEList">{{item.name}}</option>
             </select>
             <div class="invalid-feedback">{{errorMsg('verE')}}</div>
           </div>
@@ -36,9 +36,9 @@
   <div class="card-body p-5">
     <h4 class="fw-bold text-center mb-3">Update Ver Guides</h4>
     <ng-container *ngFor="let item of verUpdateList; let idx = index">
-      <div class="row description" *ngIf="item.Content !== ''">
+      <div class="row description" *ngIf="item.content !== ''">
         <div class="col-md-1"><b>{{idx + 1}}.</b></div>
-        <div class="col-md-11" [innerHTML]="item.Content | sanitizeHtml"></div>
+        <div class="col-md-11" [innerHTML]="item.content | sanitizeHtml"></div>
       </div>
     </ng-container>
     <div class="description  text-center" *ngIf="noneUpdateText !== ''">{{noneUpdateText}}</div>

@@ -6,8 +6,8 @@
         <orderBy>SORT</orderBy>
     </select>
     <select id="B102.QueryLog">
-        SELECT NAME AS Name, ID AS Id, CT_DATE AS CtDate FROM JOB_LOG
-        <where>NAME = @{NAME}</where>
+        SELECT NAME, ID, CT_DATE FROM JOB_LOG
+        <where>NAME = @{name}</where>
         <orderBy>CT_DATE DESC</orderBy>
     </select>
 </dao>

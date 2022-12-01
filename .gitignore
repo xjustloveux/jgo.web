@@ -14,8 +14,5 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 dist/
-website/
-config/config-prd.json
-config/cron-prd.json
-config/log-prd.json
-config/sql-prd.json
+log/
+config/config-dev.yaml

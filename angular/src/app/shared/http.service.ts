@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import {LoadingService} from '../views/loading/loading.service';
+import {Message} from "../const/message";
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,17 @@ export class HttpService {
       this.http
         .get(url)
         .subscribe({
-          next: (res) => {
-            resolve(res);
+          next: (res: any) => {
+            if (res.success) {
+              resolve(res.data);
+            } else {
+              Swal.fire(Message[res.code]);
+              reject(res.code);
+            }
           },
           error: (error) => {
             console.log(error);
+            reject(error);
             Swal.fire('Connection failed or timed out!');
           },
           complete: () => {
@@ -59,11 +66,17 @@ export class HttpService {
       this.http
         .post(url, json)
         .subscribe({
-          next: (res) => {
-            resolve(res);
+          next: (res: any) => {
+            if (res.success) {
+              resolve(res.data);
+            } else {
+              Swal.fire(Message[res.code]);
+              reject(res.code);
+            }
           },
           error: (error) => {
             console.log(error);
+            reject(error);
             Swal.fire('Connection failed or timed out!');
           },
           complete: () => {

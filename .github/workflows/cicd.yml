@@ -29,10 +29,14 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.18
+        go-version: 1.19
         
-    - name: Go Install
-      run: go install github.com/goreleaser/goreleaser@latest
+    - name: Copy Secrets
+      run: |
+        sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
+        sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
+        sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
+        sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
         
     - name: Go Get
       run: go get -v
@@ -41,15 +45,24 @@ jobs:
       run: go test -v ./...
 
     - name: Go Build
-      run: goreleaser release --snapshot --rm-dist
-        
-    - name: Deploy to Server
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      run: go build -o jgo
+
+    - name: Build the Docker image
+      run: docker build . --tag ${{ secrets.HARBOR }}/jgo
+
+    - name: Login Harbor
+      run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_URL }}
+
+    - name: Push Image
+      run: docker push ${{ secrets.HARBOR }}/jgo
+
+    - name: Start Image
+      uses: appleboy/ssh-action@master
       with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PWD }}
-          port: ${{ secrets.FTP_PORT }}
-          protocol: ${{ secrets.FTP_PROTOCOL }}
-          local-dir: dist/
-          server-dir: ${{ secrets.FTP_DIR }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd ${{ secrets.WEB_FOLDER }}
+          docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_URL }}
+          kubectl apply -f deployment.yaml

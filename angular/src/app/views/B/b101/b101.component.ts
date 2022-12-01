@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class B101Component implements OnInit {
 
-  proId = 'B101';
+  proId = 'b101';
   content: PkgContentClass[] = [];
 
   constructor(
@@ -20,11 +20,7 @@ export class B101Component implements OnInit {
   ) {
     this.title.setTitle('jsql | JGo');
     this.service.queryContent(this.proId).then((res) => {
-      if (res.success) {
-        this.content = res.content;
-      } else {
-        Swal.fire('Query content failed!');
-      }
+      this.content = res;
     });
   }
 

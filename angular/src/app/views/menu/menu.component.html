@@ -8,15 +8,15 @@
   <ul>
     <ng-container *ngFor="let item1 of menu">
       <li>
-        <a class="cursor-default" href="javascript:void(0);" *ngIf="item1.LIST.length > 0 else layer1">
-          {{item1.PRO_NAME}}
+        <a class="cursor-default" href="javascript:void(0);" *ngIf="item1.child.length > 0 else layer1">
+          {{item1.name}}
         </a>
         <ng-template #layer1>
-          <a routerLink="{{item1.PRO_URL}}" routerLinkActive="text-info">{{item1.PRO_NAME}}</a>
+          <a routerLink="{{item1.url}}" routerLinkActive="text-info">{{item1.name}}</a>
         </ng-template>
-        <div class="child" *ngIf="item1.LIST.length > 0">
-          <ng-container *ngFor="let item2 of item1.LIST">
-            <a routerLink="{{item2.PRO_URL}}" routerLinkActive="text-info">{{item2.PRO_NAME}}</a>
+        <div class="child" *ngIf="item1.child.length > 0">
+          <ng-container *ngFor="let item2 of item1.child">
+            <a routerLink="{{item2.url}}" routerLinkActive="text-info">{{item2.name}}</a>
           </ng-container>
         </div>
       </li>

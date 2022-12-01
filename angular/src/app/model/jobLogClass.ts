@@ -1,11 +1,11 @@
 export class JobLogClass {
-  Name: string;
-  Id: string;
-  CtDate: Date;
+  name: string;
+  id: string;
+  ct_date: Date;
 
   constructor(data: any) {
-    this.Name = data.Name;
-    this.Id = data.Id;
-    this.CtDate = data.CtDate;
+    this.name = data.name;
+    this.id = data.id;
+    this.ct_date = data.ct_date;
   }
 }
