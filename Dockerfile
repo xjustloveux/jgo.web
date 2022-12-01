@@ -11,5 +11,5 @@ RUN         export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_8:$LD_LIBRARY_PA
 COPY        jgo /app/
 COPY        dist/ /app/dist/
 COPY        dao/ /app/dao/
-EXPOSE      90
+EXPOSE      443
 ENTRYPOINT  ["/app/jgo"]
