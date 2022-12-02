@@ -34,14 +34,14 @@ jobs:
     - name: Copy Secrets
       run: |
         echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-        echo "KEY=${{ secrets.SSH_KEY_BASE64 }} | base64 -d" >> $GITHUB_ENV
-        echo ${{ secrets.DEPLOYMENT }} | base64 -d >> deployment.yaml
+        echo ${{ secrets.SSH_KEY }} >> key
+        echo ${{ secrets.DEPLOYMENT }} >> deployment.yaml
         sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
         sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
         sed -i 's/TAG/$NOW/g' deployment.yaml
-        scp -i $KEY deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
+        scp -i key deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
         
     - name: Go Get
       run: go get -v
