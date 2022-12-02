@@ -41,7 +41,7 @@ jobs:
         sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
         sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
         sed -i 's/TAG/$NOW/g' deployment.yaml
-        scp -i key deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
+        scp -i key ./deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
         
     - name: Go Get
       run: go get -v
