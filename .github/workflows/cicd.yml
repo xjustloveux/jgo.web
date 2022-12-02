@@ -33,10 +33,14 @@ jobs:
         
     - name: Copy Secrets
       run: |
+        echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+        echo ${{ secrets.DEPLOYMENT }} >> deployment.yaml
         sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
         sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
+        sed -i 's/TAG/$NOW/g' deployment.yaml
+        scp -i ${{ secrets.SSH_KEY }} deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
         
     - name: Go Get
       run: go get -v
@@ -48,13 +52,13 @@ jobs:
       run: go build -o jgo
 
     - name: Build the Docker image
-      run: docker build . --tag ${{ secrets.HARBOR }}/jgo
+      run: docker build . --tag ${{ secrets.HARBOR }}/jgo:$NOW
 
     - name: Login Harbor
       run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_URL }}
 
     - name: Push Image
-      run: docker push ${{ secrets.HARBOR }}/jgo
+      run: docker push ${{ secrets.HARBOR }}/jgo:$NOW
 
     - name: Start Image
       uses: appleboy/ssh-action@master
