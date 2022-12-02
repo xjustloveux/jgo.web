@@ -20,9 +20,9 @@ var (
 
 func getRouter() *gin.Engine {
 
-	if !Dev {
+	/*if !Dev {
 
 		gin.SetMode(gin.ReleaseMode)
-	}
+	}*/
 	return gin.Default()
 }
