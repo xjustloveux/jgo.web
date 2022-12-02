@@ -1,6 +1,6 @@
-port: 7777
+port: 443
 autoStartCron: true
-dist: ./dist/assets
+dist: /app/dist/assets
 db:
   daoPath: dao/
   default: JGoPostgreSql
