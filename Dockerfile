@@ -8,6 +8,7 @@ RUN         unzip instantclient-basic-linux.x64-21.8.0.0.0dbru.zip
 RUN         sh -c "echo /opt/oracle/instantclient_21_8 > /etc/ld.so.conf.d/oracle-instantclient.conf"
 RUN         ldconfig
 RUN         export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_8:$LD_LIBRARY_PATH
+RUN         apt-get install net-tools
 COPY        jgo /app/
 COPY        dist/ /app/dist/
 COPY        dao/ /app/dao/
