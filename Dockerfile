@@ -12,5 +12,6 @@ COPY        jgo /app/
 COPY        dist/ /app/dist/
 COPY        dao/ /app/dao/
 COPY        config/ /app/config/
+WORKDIR     /app
 EXPOSE      443
 ENTRYPOINT  ["/app/jgo"]
