@@ -14,5 +14,5 @@ COPY        dao/ /app/dao/
 COPY        config/ /app/config/
 COPY        sitemap.xml /app/sitemap.xml
 WORKDIR     /app
-EXPOSE      443
+EXPOSE      7777
 ENTRYPOINT  ["/app/jgo"]

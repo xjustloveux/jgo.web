@@ -1,4 +1,4 @@
-port: 443
+port: 7777
 autoStartCron: true
 dist: /app/dist/assets
 db:
