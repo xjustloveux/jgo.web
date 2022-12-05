@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup Node.js environment
+    - name: Setup Node.js Environment
       uses: actions/setup-node@v3.3.0
       with:
           node-version: '18'
@@ -26,42 +26,59 @@ jobs:
       working-directory: ./angular
       run: npm run build
         
-    - name: Set up Go
+    - name: Setup Go Environment
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-        
-    - name: Copy Secrets
-      run: |
-        echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-        echo ${{ secrets.SSH_KEY_BASE64 }} | base64 -d >> key
-        echo ${{ secrets.DEPLOYMENT }} | base64 -d >> deployment.yaml
-        sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
-        sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
-        sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
-        sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
-        sed -i 's/TAG/$NOW/g' deployment.yaml
-        scp -i key deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
-        
+
     - name: Go Get
       run: go get -v
-        
+
     - name: Go Test
       run: go test -v ./...
 
     - name: Go Build
       run: go build -o jgo
 
-    - name: Build the Docker image
-      run: docker build . --tag ${{ secrets.HARBOR }}/jgo:$NOW
+    - name: Setup Current Time Environment
+      uses: josStorer/get-current-time@v2.0.2
+      id: current-time
+      with:
+        format: YYYYMMDDHHmmSS
+        utcOffset: "+08:00"
+        
+    - name: Copy Secrets
+      run: |
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        echo ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        echo ${{ secrets.SSH_KEY_BASE64 }} | base64 -d >> ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa ~/.ssh/config ~/.ssh/known_hosts
+        echo ${{ secrets.DEPLOYMENT }} | base64 -d >> deployment.yaml
+        sed -i 's/TAG/${{ env.NOW }}/g' deployment.yaml
+        sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
+        sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
+        sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml
+        sed -i 's/POSTGRESQL_DSN/${{ secrets.POSTGRESQL_DSN }}/g' ./config/config.yaml
+        scp -i ~/.ssh/id_rsa deployment.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WEB_FOLDER }}deployment.yaml
+      env:
+        NOW: "${{ steps.current-time.outputs.formattedTime }}"
+
+    - name: Build Docker image
+      run: docker build . --tag ${{ secrets.HARBOR }}/jgo:${{ env.NOW }}
+      env:
+        NOW: "${{ steps.current-time.outputs.formattedTime }}"
 
     - name: Login Harbor
       run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_URL }}
 
     - name: Push Image
-      run: docker push ${{ secrets.HARBOR }}/jgo:$NOW
+      run: docker push ${{ secrets.HARBOR }}/jgo:${{ env.NOW }}
+      env:
+        NOW: "${{ steps.current-time.outputs.formattedTime }}"
 
-    - name: Start Image
+    - name: Apply Deployment
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
