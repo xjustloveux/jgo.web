@@ -47,7 +47,7 @@ jobs:
         format: YYYYMMDDHHmmSS
         utcOffset: "+08:00"
         
-    - name: Copy Secrets
+    - name: Copy And Replace Secrets
       run: |
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
