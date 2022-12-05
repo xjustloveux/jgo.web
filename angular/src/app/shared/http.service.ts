@@ -18,17 +18,26 @@ export class HttpService {
   /**
    * get
    * @param url      api url
+   * @param json     json object
    * @param loading loading screen
    */
-  get(url: string, loading?: boolean): Promise<any> {
+  get(url: string, json: any, loading?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
 
       if (loading !== false) {
         this.loadingService.show();
       }
 
+      let params = '';
+      for(const k in json) {
+        const val = json[k];
+        if (val) {
+          params += (params === '' ? '?' : '&') + k + '=' + encodeURIComponent(val);
+        }
+      }
+
       this.http
-        .get(url)
+        .get(url + params)
         .subscribe({
           next: (res: any) => {
             if (res.success) {

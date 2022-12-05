@@ -22,10 +22,18 @@ func (j *job002) Name() string {
 func (j *job002) Run(m map[string]interface{}) {
 
 	jlog.Info(j.Name(), " start")
+	now := time.Now()
+	if loc, err := time.LoadLocation("Asia/Taipei"); err != nil {
+
+		jlog.Error(err)
+	} else {
+
+		now = time.Now().In(loc)
+	}
 	if _, err := jgopostgresqlsrv.JobLog.Create(jgopostgresqlmod.JobLog{
 		Name:   j.Name(),
 		Id:     jcast.String(m["id"]),
-		CtDate: time.Now(),
+		CtDate: now,
 	}); err != nil {
 
 		jlog.Error(err)

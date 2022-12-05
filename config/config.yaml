@@ -22,6 +22,7 @@ db:
       dsn: POSTGRESQL_DSN
       dbName: jgo
 cron:
+  location: Asia/Taipei
   schedule:
     - Name: Sch001
       Cron: 2-43/13 1/5,30/3 * * * ? *
@@ -34,23 +35,33 @@ cron:
 log:
   params:
     path: ./log
+  default:
+    - sys
   appender:
     sys:
       level: Error
+      formatter:
+        location: Asia/Taipei
       output: 
         P: ${path}/sys/%yyyy-%MM-%dd.log
         linkName: ${path}/sys/system
     web:
+      formatter:
+        location: Asia/Taipei
       output:
         P: ${path}/web/%yyyy-%MM-%dd/${Program}.log
         linkName: ${path}/web/${Program}
         maxAge: 7
     job:
+      formatter:
+        location: Asia/Taipei
       output:
         P: ${path}/job/%yyyy-%MM-%dd/${Program}.log
         linkName: ${path}/job/${Program}
         maxAge: 7
     sql:
+      formatter:
+        location: Asia/Taipei
       output:
         P: ${path}/sql/%yyyy-%MM-%dd.log
         linkName: ${path}/sql/sql

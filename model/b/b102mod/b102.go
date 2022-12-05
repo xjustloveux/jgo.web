@@ -11,7 +11,7 @@ type ReqQueryLog struct {
 }
 
 type ReqTrigger struct {
-	Id string `json:"id" form:"id" validate:"required"`
+	Id string `json:"id" structs:"id" form:"id" validate:"required"`
 }
 
 type ResJobLog struct {

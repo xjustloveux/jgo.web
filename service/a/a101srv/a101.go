@@ -59,12 +59,18 @@ func CreateMsg(req a101mod.ReqCreateMsg, ip string) error {
 		return err
 	} else {
 
+		var loc *time.Location
+		if loc, err = time.LoadLocation("Asia/Taipei"); err != nil {
+
+			return err
+		}
+		now := time.Now().In(loc)
 		switch t {
 		case jsql.MySql:
 			if _, err = jgomysqlsrv.Message.Create(jgomysqlmod.Message{
 				Ip:      ip,
 				Content: req.Content,
-				CtDate:  time.Now(),
+				CtDate:  now,
 			}); err != nil {
 
 				return err
@@ -73,7 +79,7 @@ func CreateMsg(req a101mod.ReqCreateMsg, ip string) error {
 			if _, err = jgomssqlsrv.Message.Create(jgomssqlmod.Message{
 				Ip:      ip,
 				Content: req.Content,
-				CtDate:  time.Now(),
+				CtDate:  now,
 			}); err != nil {
 
 				return err
@@ -82,7 +88,7 @@ func CreateMsg(req a101mod.ReqCreateMsg, ip string) error {
 			if _, err = jgooraclesrv.Message.Create(jgooraclemod.Message{
 				Ip:      ip,
 				Content: req.Content,
-				CtDate:  time.Now(),
+				CtDate:  now,
 			}); err != nil {
 
 				return err
@@ -91,7 +97,7 @@ func CreateMsg(req a101mod.ReqCreateMsg, ip string) error {
 			if _, err = jgopostgresqlsrv.Message.Create(jgopostgresqlmod.Message{
 				Ip:      ip,
 				Content: req.Content,
-				CtDate:  time.Now(),
+				CtDate:  now,
 			}); err != nil {
 
 				return err

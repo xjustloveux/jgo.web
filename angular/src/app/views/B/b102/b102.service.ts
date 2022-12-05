@@ -13,7 +13,7 @@ export class B102Service {
 
   queryContent(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/b/' + id, true).then((res: any) => {
+      this.http.get('/b/' + id, {}, true).then((res: any) => {
         resolve(res);
       });
     });
@@ -21,7 +21,7 @@ export class B102Service {
 
   queryLog(name: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/b/b102/QueryLog?name=' + name, true).then((res: any) => {
+      this.http.get('/b/b102/QueryLog', { name: name }, true).then((res: any) => {
         resolve(res);
       });
     });

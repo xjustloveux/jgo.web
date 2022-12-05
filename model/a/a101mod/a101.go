@@ -4,6 +4,8 @@
 
 package a101mod
 
+import "time"
+
 type ReqQueryPage struct {
 	DbType string `json:"dbType" form:"dbType" validate:"required"`
 	Page   int64  `json:"page" form:"page" validate:"required"`
@@ -16,7 +18,8 @@ type ReqCreateMsg struct {
 }
 
 type Msg struct {
-	Content string `json:"content"`
+	Content string    `json:"content"`
+	CtDate  time.Time `json:"ct_date"`
 }
 
 type ResMsg struct {

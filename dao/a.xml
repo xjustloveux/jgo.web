@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao>
     <select id="A.QueryPage">
-        SELECT CONTENT AS content, CT_DATE FROM MESSAGE
+        SELECT CONTENT AS content, CT_DATE AS ct_date FROM MESSAGE
         <orderBy last="true">CT_DATE DESC</orderBy>
     </select>
 </dao>

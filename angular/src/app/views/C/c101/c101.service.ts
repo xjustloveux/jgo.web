@@ -13,7 +13,7 @@ export class C101Service {
 
   queryVerList(ver?: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/c/c101/QueryVer' + (ver ? '?ver=' + ver : ''), true).then((res: any) => {
+      this.http.get('/c/c101/QueryVer', { ver: ver }, true).then((res: any) => {
         resolve(res);
       });
     });
@@ -21,7 +21,7 @@ export class C101Service {
 
   queryVerUpdate(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get('/c/c101/QueryVerUpdate?verS=' + data.verS + '&verE=' + data.verE, true).then((res: any) => {
+      this.http.get('/c/c101/QueryVerUpdate', data, true).then((res: any) => {
         resolve(res);
       });
     });

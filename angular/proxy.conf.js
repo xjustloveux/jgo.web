@@ -3,7 +3,7 @@ const PROXY_CONFIG = [
     context: [
       "/shared", "/a", "/b", "/c"
     ],
-    target: "http://localhost:8080",
+    target: "http://localhost:7777",
     secure: false,
     changeOrigin: true
   }

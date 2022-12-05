@@ -117,6 +117,22 @@ footer {
   margin: 3rem auto;
 }
 
+.form-label {
+  margin-top: auto;
+}
+
+.message {
+  border-top: 1px solid $jgo-message;
+}
+
+.size-w {
+  width: 3rem;
+}
+
+.page-w {
+  width: 4rem;
+}
+
 .code {
   padding: 1rem;
   background: $jgo-code-bg;
@@ -158,6 +174,18 @@ footer {
 
 .w-1rem {
   width: 1rem;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-85 {
+  width: 85%;
+}
+
+.w-90 {
+  width: 90%;
 }
 
 .card {

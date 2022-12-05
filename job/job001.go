@@ -25,6 +25,13 @@ func (j *job001) Run(map[string]interface{}) {
 
 	jlog.Info(j.Name(), " start")
 	now := time.Now()
+	if loc, err := time.LoadLocation("Asia/Taipei"); err != nil {
+
+		jlog.Error(err)
+	} else {
+
+		now = time.Now().In(loc)
+	}
 	var delParam job001mod.DelParam
 	if hrStr, err := jcast.TimeString(now); err != nil {
 
