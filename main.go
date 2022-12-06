@@ -15,6 +15,7 @@ import (
 	"github.com/xjustloveux/jgo.web/job"
 	"github.com/xjustloveux/jgo.web/middleware/log"
 	"github.com/xjustloveux/jgo.web/middleware/yaml"
+	"github.com/xjustloveux/jgo/jconf"
 	"github.com/xjustloveux/jgo/jcron"
 	"github.com/xjustloveux/jgo/jfile"
 	"github.com/xjustloveux/jgo/jlog"
@@ -28,10 +29,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	if asc, err := global.Conf.Bool("autoStartCron"); err != nil {
-
-		jlog.Error(err)
-	} else if asc {
+	if global.Conf.AutoStartCron {
 
 		defer func() {
 
@@ -50,15 +48,20 @@ func jGoInit() error {
 
 	jfile.RegisterCodec(jfile.Yaml.String(), yaml.Codec{})
 	configFile := "config.yaml"
-	global.Conf.SetFormat(jfile.Yaml)
-	global.Conf.SetFileName(configFile)
+	conf := jconf.New()
+	conf.SetFormat(jfile.Yaml)
+	conf.SetFileName(configFile)
 	jsql.SetFormat(jfile.Yaml)
 	jsql.SetFileName(configFile)
 	jcron.SetFormat(jfile.Yaml)
 	jcron.SetFileName(configFile)
 	jlog.SetFormat(jfile.Yaml)
 	jlog.SetFileName(configFile)
-	if err := global.Conf.Load(); err != nil {
+	if err := conf.Load(); err != nil {
+
+		return err
+	}
+	if err := conf.Convert(&global.Conf); err != nil {
 
 		return err
 	}

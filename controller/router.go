@@ -26,43 +26,29 @@ func Init() error {
 
 		return err
 	}
-	if port, err := global.Conf.String("port"); err != nil {
-
-		return err
-	} else if len(port) > 0 {
-
-		return global.Router.Run(fmt.Sprint(":", port))
-	}
-	return global.Router.Run(":8080")
+	return global.Router.Run(fmt.Sprint(":", global.Conf.Port))
 }
 
 func initAngular() error {
 
-	if assets, err := global.Conf.String("assets"); err != nil {
+	global.Router.Static("/assets", global.Conf.Assets)
+	global.Router.StaticFile("./sitemap.xml", "./sitemap.xml")
+	if !global.Dev {
 
-		return err
-	} else {
+		if list, err := getAngularFile(); err != nil {
 
-		global.Router.Static("/assets", assets)
-		global.Router.StaticFile("./sitemap.xml", "./sitemap.xml")
-		if !global.Dev {
+			return err
+		} else {
 
-			var list []string
-			if list, err = getAngularFile(); err != nil {
+			for _, file := range list {
 
-				return err
-			} else {
-
-				for _, file := range list {
-
-					global.Router.StaticFile(file, fmt.Sprint("./dist/", file))
-				}
+				global.Router.StaticFile(file, fmt.Sprint("./dist/", file))
 			}
-			global.Router.NoRoute(func(c *gin.Context) {
-
-				c.File("./dist/index.html")
-			})
 		}
+		global.Router.NoRoute(func(c *gin.Context) {
+
+			c.File("./dist/index.html")
+		})
 	}
 	return nil
 }
