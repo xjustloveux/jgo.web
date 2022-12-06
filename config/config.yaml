@@ -45,12 +45,14 @@ log:
       output: 
         P: ${path}/sys/%yyyy-%MM-%dd.log
         linkName: ${path}/sys/system
+        clock: Asia/Taipei
     web:
       formatter:
         location: Asia/Taipei
       output:
         P: ${path}/web/%yyyy-%MM-%dd/${Program}.log
         linkName: ${path}/web/${Program}
+        clock: Asia/Taipei
         maxAge: 7
     job:
       formatter:
@@ -58,6 +60,7 @@ log:
       output:
         P: ${path}/job/%yyyy-%MM-%dd/${Program}.log
         linkName: ${path}/job/${Program}
+        clock: Asia/Taipei
         maxAge: 7
     sql:
       formatter:
@@ -65,6 +68,7 @@ log:
       output:
         P: ${path}/sql/%yyyy-%MM-%dd.log
         linkName: ${path}/sql/sql
+        clock: Asia/Taipei
         maxAge: 7
   logs:
     - program:
