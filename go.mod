@@ -11,7 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/godror/godror v0.35.0
 	github.com/lib/pq v1.10.7
-	github.com/xjustloveux/jgo v1.3.9
+	github.com/xjustloveux/jgo v1.3.10
 	gopkg.in/yaml.v2 v2.4.0
 )
 
