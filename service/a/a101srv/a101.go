@@ -14,6 +14,7 @@ import (
 	"github.com/xjustloveux/jgo.web/service/jgomysqlsrv"
 	"github.com/xjustloveux/jgo.web/service/jgooraclesrv"
 	"github.com/xjustloveux/jgo.web/service/jgopostgresqlsrv"
+	"github.com/xjustloveux/jgo/jcast"
 	"github.com/xjustloveux/jgo/jsql"
 	"time"
 )
@@ -47,6 +48,14 @@ func QueryPage(req a101mod.ReqQueryPage) (*a101mod.ResMsg, error) {
 		if _, err = agent.QueryPage("A.QueryPage", s, e, &v); err != nil {
 
 			return nil, err
+		}
+		for i, r := range v.Rows {
+
+			if r.CtDate, err = jcast.TimeLocTransform(r.CtDate, "Asia/Taipei"); err != nil {
+
+				return nil, err
+			}
+			v.Rows[i].CtDate = r.CtDate.UTC()
 		}
 		return &v, nil
 	}

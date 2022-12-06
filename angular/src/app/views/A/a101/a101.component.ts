@@ -141,7 +141,7 @@ export class A101Component implements OnInit {
   getTime(date: Date): string {
     const d = new Date(date);
     return d.getFullYear() + '-' +
-      d.getMonth().toString().padStart(2, '0') + '-' +
+      (d.getMonth()+1).toString().padStart(2, '0') + '-' +
       d.getDate().toString().padStart(2, '0') + ' ' +
       d.getHours().toString().padStart(2, '0') + ':' +
       d.getMinutes().toString().padStart(2, '0') + ':' +
