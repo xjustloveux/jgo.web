@@ -7,13 +7,13 @@ package global
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/xjustloveux/jgo.web/model/config"
+	"github.com/xjustloveux/jgo.web/model/configmod"
 	"os"
 )
 
 var (
 	Dev      = os.Getenv("jEnv") == "dev"
-	Conf     = config.Config{}
+	Conf     = configmod.Config{}
 	Router   = getRouter()
 	Validate = validator.New()
 )

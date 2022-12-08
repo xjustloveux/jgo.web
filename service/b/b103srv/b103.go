@@ -13,6 +13,7 @@ import (
 	"github.com/xjustloveux/jgo/jlog"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -58,6 +59,18 @@ func getFolderList(path string) (log b103mod.ResLog, err error) {
 			return
 		} else {
 
+			sort.Slice(list, func(i, j int) bool {
+				id := list[i].IsDir()
+				jd := list[j].IsDir()
+				if id && !jd {
+
+					return true
+				} else if !id && jd {
+
+					return false
+				}
+				return list[i].Name() < list[j].Name()
+			})
 			for _, f := range list {
 
 				if f.IsDir() {

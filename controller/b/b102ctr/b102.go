@@ -7,7 +7,7 @@ package b102ctr
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/xjustloveux/jgo.web/enum/message"
+	"github.com/xjustloveux/jgo.web/global/enum"
 	"github.com/xjustloveux/jgo.web/middleware/ginc"
 	"github.com/xjustloveux/jgo.web/middleware/validatorc"
 	"github.com/xjustloveux/jgo.web/model/b/b102mod"
@@ -22,7 +22,7 @@ func QueryContent(ctx *gin.Context) {
 	if data, err := b102srv.QueryContent(); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 
@@ -37,19 +37,19 @@ func QueryLog(ctx *gin.Context) {
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if err := validatorc.Verify(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if data, err := b102srv.QueryLog(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 
@@ -64,19 +64,19 @@ func Trigger(ctx *gin.Context) {
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if err := validatorc.Verify(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if err := b102srv.Trigger(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.TriggerFail)
+		ginc.Fail(ctx, enum.TriggerFail)
 	} else {
 
 		ginc.Ok(ctx)

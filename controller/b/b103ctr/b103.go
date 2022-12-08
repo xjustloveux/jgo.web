@@ -7,7 +7,7 @@ package b103ctr
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/xjustloveux/jgo.web/enum/message"
+	"github.com/xjustloveux/jgo.web/global/enum"
 	"github.com/xjustloveux/jgo.web/middleware/ginc"
 	"github.com/xjustloveux/jgo.web/service/b/b103srv"
 	"github.com/xjustloveux/jgo/jlog"
@@ -20,7 +20,7 @@ func QueryContent(ctx *gin.Context) {
 	if data, err := b103srv.QueryContent(); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 
@@ -34,7 +34,7 @@ func QueryLog(ctx *gin.Context) {
 	if data, err := b103srv.QueryLog(); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 

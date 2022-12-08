@@ -7,7 +7,7 @@ package c101ctr
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/xjustloveux/jgo.web/enum/message"
+	"github.com/xjustloveux/jgo.web/global/enum"
 	"github.com/xjustloveux/jgo.web/middleware/ginc"
 	"github.com/xjustloveux/jgo.web/middleware/validatorc"
 	"github.com/xjustloveux/jgo.web/model/c/c101mod"
@@ -23,19 +23,19 @@ func QueryVer(ctx *gin.Context) {
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if err := validatorc.Verify(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if data, err := c101srv.QueryVer(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 
@@ -50,19 +50,19 @@ func QueryVerUpdate(ctx *gin.Context) {
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if err := validatorc.Verify(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.InvalidRequest)
+		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
 	if data, err := c101srv.QueryVerUpdate(req); err != nil {
 
 		jlog.Error(err)
-		ginc.Fail(ctx, message.QueryFail)
+		ginc.Fail(ctx, enum.QueryFail)
 		return
 	} else {
 
