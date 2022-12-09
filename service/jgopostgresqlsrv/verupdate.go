@@ -21,6 +21,18 @@ type verUpdate struct {
 	table string
 }
 
+// Ds return ds
+func (srv *verUpdate) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *verUpdate) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *verUpdate) Create(data jgopostgresqlmod.VerUpdate) (jsql.Result, error) {
 

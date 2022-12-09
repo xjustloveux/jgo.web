@@ -21,6 +21,18 @@ type pkgContent struct {
 	table string
 }
 
+// Ds return ds
+func (srv *pkgContent) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *pkgContent) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *pkgContent) Create(data jgopostgresqlmod.PkgContent) (jsql.Result, error) {
 

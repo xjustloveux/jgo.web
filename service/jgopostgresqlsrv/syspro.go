@@ -21,6 +21,18 @@ type sysPro struct {
 	table string
 }
 
+// Ds return ds
+func (srv *sysPro) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *sysPro) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *sysPro) Create(data jgopostgresqlmod.SysPro) (jsql.Result, error) {
 

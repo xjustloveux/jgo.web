@@ -21,6 +21,18 @@ type verHs struct {
 	table string
 }
 
+// Ds return ds
+func (srv *verHs) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *verHs) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *verHs) Create(data jgopostgresqlmod.VerHs) (jsql.Result, error) {
 

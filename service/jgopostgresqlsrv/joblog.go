@@ -21,6 +21,18 @@ type jobLog struct {
 	table string
 }
 
+// Ds return ds
+func (srv *jobLog) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *jobLog) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *jobLog) Create(data jgopostgresqlmod.JobLog) (jsql.Result, error) {
 

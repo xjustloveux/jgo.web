@@ -21,6 +21,18 @@ type message struct {
 	table string
 }
 
+// Ds return ds
+func (srv *message) Ds() string {
+
+	return srv.ds
+}
+
+// Table return table name
+func (srv *message) Table() string {
+
+	return srv.table
+}
+
 // Create insert data
 func (srv *message) Create(data jgomssqlmod.Message) (jsql.Result, error) {
 
