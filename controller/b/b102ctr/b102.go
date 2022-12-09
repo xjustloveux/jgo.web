@@ -18,7 +18,7 @@ import (
 
 func QueryContent(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	if data, err := b102srv.QueryContent(); err != nil {
 
 		jlog.Error(err)

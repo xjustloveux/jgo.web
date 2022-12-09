@@ -5,15 +5,18 @@
 package menuctr
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/xjustloveux/jgo.web/global/enum"
 	"github.com/xjustloveux/jgo.web/middleware/ginc"
 	"github.com/xjustloveux/jgo.web/service/sharedsrv/menusrv"
 	"github.com/xjustloveux/jgo/jlog"
+	"github.com/xjustloveux/jgo/jruntime"
 )
 
 func QueryMenu(ctx *gin.Context) {
 
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	if data, err := menusrv.QueryMenu(); err != nil {
 
 		jlog.Error(err)

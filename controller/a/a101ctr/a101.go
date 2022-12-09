@@ -18,7 +18,7 @@ import (
 
 func QueryPage(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	var req a101mod.ReqQueryPage
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 
