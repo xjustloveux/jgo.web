@@ -54,6 +54,10 @@ func Init() (func(), error) {
 		return nil, err
 	}
 	jsql.SubscribeSql(logc.SqlLog)
+	jcron.SubscribeLog(func(args ...interface{}) {
+
+		jlog.Error(args...)
+	})
 	var fc func()
 	if global.Conf.AutoStartCron {
 
