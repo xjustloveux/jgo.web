@@ -86,7 +86,7 @@
           <a href="javascript:void(0);" (click)="nextPage()">></a>
         </div>
         <div class="d-flex float-end">
-          <input type="number" class="form-control page-w me-2" [ngModel]="nowPage">
+          <input type="number" class="form-control page-w me-2" [ngModel]="nowPage" (ngModelChange)="pageChange($event)">
           <button class="btn btn-outline-dark px-3" (click)="pageClick()">Go</button>
         </div>
       </div>

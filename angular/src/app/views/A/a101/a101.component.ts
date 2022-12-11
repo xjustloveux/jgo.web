@@ -174,6 +174,14 @@ export class A101Component implements OnInit {
     this.queryPage(tab);
   }
 
+  pageChange(val: number): void {
+    if (val < 1) {
+      this.nowPage = 1;
+    } else {
+      this.nowPage = val;
+    }
+  }
+
   pageClick(): void {
     const tab = this.getActiveTab();
     tab.page = this.nowPage;
