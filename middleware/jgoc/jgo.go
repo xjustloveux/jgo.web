@@ -5,6 +5,7 @@
 package jgoc
 
 import (
+	"fmt"
 	"github.com/xjustloveux/jgo.web/global"
 	"github.com/xjustloveux/jgo.web/job"
 	"github.com/xjustloveux/jgo.web/middleware/logc"
@@ -57,6 +58,10 @@ func Init() (func(), error) {
 	jcron.SubscribeLog(func(args ...interface{}) {
 
 		jlog.Error(args...)
+	})
+	jlog.SubscribeLog(func(args ...interface{}) {
+
+		fmt.Println(args...)
 	})
 	var fc func()
 	if global.Conf.AutoStartCron {
