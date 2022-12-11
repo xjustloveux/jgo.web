@@ -32,7 +32,7 @@ func QueryContent(ctx *gin.Context) {
 
 func QueryLog(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	var req b102mod.ReqQueryLog
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 
@@ -59,7 +59,7 @@ func QueryLog(ctx *gin.Context) {
 
 func Trigger(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	var req b102mod.ReqTrigger
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 

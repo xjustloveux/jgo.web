@@ -45,7 +45,7 @@ func QueryPage(ctx *gin.Context) {
 
 func CreateMsg(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	var req a101mod.ReqCreateMsg
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 

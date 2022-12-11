@@ -30,7 +30,7 @@ func QueryContent(ctx *gin.Context) {
 
 func QueryLog(ctx *gin.Context) {
 
-	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.RemoteIP()))
+	jlog.Info(fmt.Sprint(jruntime.GetFuncName(), "-", ctx.ClientIP()))
 	if data, err := b103srv.QueryLog(); err != nil {
 
 		jlog.Error(err)
