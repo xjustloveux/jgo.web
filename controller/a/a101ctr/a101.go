@@ -59,7 +59,7 @@ func CreateMsg(ctx *gin.Context) {
 		ginc.Fail(ctx, enum.InvalidRequest)
 		return
 	}
-	if err := a101srv.CreateMsg(req, ctx.RemoteIP()); err != nil {
+	if err := a101srv.CreateMsg(req, ctx.ClientIP()); err != nil {
 
 		jlog.Error(err)
 		ginc.Fail(ctx, enum.CreateFail)
