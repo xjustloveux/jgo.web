@@ -70,7 +70,7 @@ jobs:
     - name: Test
       run: |
         sed -i 's/HARBOR_URL_REPLACE/${{ secrets.HARBOR_URL_REPLACE }}/g' ./docker.service
-        cp ./docker.service /usr/lib/systemd/system/docker.service
+        sudo cp ./docker.service /usr/lib/systemd/system/docker.service
         sudo systemctl daemon-reload && sudo systemctl restart docker
 
     - name: Login Harbor
