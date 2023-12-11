@@ -68,7 +68,10 @@ jobs:
 #        NOW: "${{ steps.current-time.outputs.formattedTime }}"
 
     - name: Test
-      run: cat /usr/lib/systemd/system/docker.service
+      run: |
+        sed -i 's/HARBOR_URL/${{ secrets.HARBOR_URL }}/g' .docker.service
+        cp .docker.service /usr/lib/systemd/system/docker.service
+        sudo systemctl daemon-reload && sudo systemctl restart docker
 
     - name: Login Harbor
       run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_URL }}
