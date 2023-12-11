@@ -50,16 +50,16 @@ log:
       formatter:
         location: Asia/Taipei
       output:
-        P: ${path}/web/%yyyy-%MM-%dd/${Program}.log
-        linkName: ${path}/web/${Program}
+        P: ${path}/web/${Program}/%yyyy-%MM-%dd.log
+        linkName: ${path}/web/${Program}/${Program}
         clock: Asia/Taipei
         maxAge: 7
     job:
       formatter:
         location: Asia/Taipei
       output:
-        P: ${path}/job/%yyyy-%MM-%dd/${Program}.log
-        linkName: ${path}/job/${Program}
+        P: ${path}/job/${Program}/%yyyy-%MM-%dd.log
+        linkName: ${path}/job/${Program}/${Program}
         clock: Asia/Taipei
         maxAge: 7
     sql:

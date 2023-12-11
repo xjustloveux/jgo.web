@@ -16,3 +16,4 @@
 dist/
 config/config-dev.yaml
 log/
+.idea/
