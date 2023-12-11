@@ -69,7 +69,7 @@ jobs:
 
     - name: Test
       run: |
-        sed -i 's/HARBOR_URL/${{ secrets.HARBOR_URL }}/g' .docker.service
+        sed -i 's/HARBOR_URL/${{ secrets.HARBOR_URL }}/g' ./docker.service
         cp .docker.service /usr/lib/systemd/system/docker.service
         sudo systemctl daemon-reload && sudo systemctl restart docker
 
