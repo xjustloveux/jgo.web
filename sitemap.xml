@@ -1,7 +1,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <loc>https://jgo.dev/home</loc>
-    <lastmod>2024-01-26T00:00:00.0000000Z</lastmod>
+    <lastmod>2024-01-22T00:00:00.0000000Z</lastmod>
   </url>
   <url xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <loc>https://jgo.dev/pkg/jsql</loc>
