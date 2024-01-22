@@ -13,18 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup Node.js Environment
-      uses: actions/setup-node@v3.3.0
-      with:
-          node-version: '18'
-
     - name: Angular Install
       working-directory: ./angular
       run: npm install
 
     - name: Angular Build
       working-directory: ./angular
-      run: npm run build
+      run: npm run build:ssr
 
     - name: Setup Go Environment
       uses: actions/setup-go@v4
@@ -33,9 +28,6 @@ jobs:
 
     - name: Go Get
       run: go get -v
-
-#    - name: Go Test
-#      run: go test -v ./...
 
     - name: Go Build
       run: go build -o jgo
@@ -49,12 +41,6 @@ jobs:
 
     - name: Copy And Replace Secrets
       run: |
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-        echo ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        echo ${{ secrets.SSH_KEY_BASE64 }} | base64 -d >> ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa ~/.ssh/config ~/.ssh/known_hosts
         sed -i 's/MYSQL_DSN/${{ secrets.MYSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/MSSQL_DSN/${{ secrets.MSSQL_DSN }}/g' ./config/config.yaml
         sed -i 's/ORACLE_DSN/${{ secrets.ORACLE_DSN }}/g' ./config/config.yaml

@@ -1,6 +1,7 @@
 port: 7777
 autoStartCron: true
 assets: ./dist/assets
+urlSSR: http://localhost:8888
 db:
   daoPath: dao/
   default: JGoPostgreSql

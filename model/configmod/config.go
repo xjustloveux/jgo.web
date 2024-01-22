@@ -5,7 +5,12 @@
 package configmod
 
 type Config struct {
-	Port          int
+	// Port gin listen port
+	Port int
+	// UrlSSR SSR網址
+	UrlSSR string
+	// AutoStartCron auto start cron
 	AutoStartCron bool
-	Assets        string
+	// Assets path to assets
+	Assets string
 }

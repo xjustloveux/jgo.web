@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
+import {afterNextRender, Component} from '@angular/core';
+import {Meta, Title} from '@angular/platform-browser';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import Swal from 'sweetalert2';
+
 import {A101Service} from './a101.service';
-import {ResMsgClass} from "../../../model/resMsgClass";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import Swal from "sweetalert2";
+import {ResMsgClass} from '../../../model/resMsgClass';
 
 @Component({
   selector: 'app-a101',
   templateUrl: './a101.component.html',
-  styleUrls: ['./a101.component.css']
 })
-export class A101Component implements OnInit {
+export class A101Component {
 
   apiList = [
     {name: 'jcast', url: 'https://pkg.go.dev/github.com/xjustloveux/jgo/jcast'},
@@ -30,9 +31,9 @@ export class A101Component implements OnInit {
     {active: false, dbType: 'Oracle', page: 1, size: 5, total: 0, res: ResMsgClass},
     {active: false, dbType: 'PostgreSql', page: 1, size: 5, total: 0, res: ResMsgClass},
   ];
-  size = [5, 10, 15];
-  nowSize = 5;
-  nowPage = 1;
+  size: number[] = [5, 10, 15];
+  nowSize: number = 5;
+  nowPage: number = 1;
   form: FormGroup;
   errors = {
     min: 'Minimum Number {0}',
@@ -43,23 +44,39 @@ export class A101Component implements OnInit {
     maxlength: 'Maximum Length {0}',
     pattern: 'Please enter information in valid formats.'
   };
-  isValid = true;
+  isValid: boolean = true;
 
   constructor(
     public service: A101Service,
+    private meta: Meta,
     public title: Title,
     private fb: FormBuilder
   ) {
-    this.title.setTitle('JGo | Golang');
-    this.tabs.forEach(tab => {
-      this.queryPage(tab);
-    });
+    const ogTitle: string = 'JGo | Golang';
+    const description: string = 'JGo provides an easier configuration for writing sql, log, and cron jobs.';
+    const keywords: string = 'jgo,golang,cron,sql,log,job,schedule,mssql,mysql,oracle';
+    const ogUrl: string = 'https://jgo.dev/home';
+    const metaList: any = [
+      {name: 'description', content: description},
+      {name: 'keywords', content: keywords},
+      {name: 'twitter:title', content: ogTitle},
+      {name: 'twitter:description', content: description},
+      {property: 'og:title', content: ogTitle},
+      {property: 'og:description', content: description},
+      {property: 'og:url', content: ogUrl},
+    ];
+    for (const item of metaList) {
+      this.meta.updateTag(item);
+    }
+    this.title.setTitle(ogTitle);
     this.form = this.fb.group({
       content: ['', [Validators.required, Validators.maxLength(50)]],
     });
-  }
-
-  ngOnInit(): void {
+    afterNextRender(() => {
+      this.tabs.forEach(tab => {
+        this.queryPage(tab);
+      });
+    })
   }
 
   isInvalid(name: string): string {
@@ -78,7 +95,7 @@ export class A101Component implements OnInit {
       Object.keys(self.errors).forEach((key: string) => {
         const error = ac?.errors?.[key];
         if (error) {
-          const reg = new RegExp("\\{0\\}");
+          const reg = new RegExp('\\{0\\}');
           switch (key) {
             case 'min':
             case 'max': {

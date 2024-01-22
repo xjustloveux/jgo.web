@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 import {A101Component} from './a101.component';
 
 @NgModule({
@@ -11,4 +12,5 @@ import {A101Component} from './a101.component';
     ReactiveFormsModule
   ]
 })
-export class A101Module { }
+export class A101Module {
+}

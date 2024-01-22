@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {Title} from '@angular/platform-browser';
+import {afterNextRender, Component} from '@angular/core';
+import {AbstractControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Meta, Title} from '@angular/platform-browser';
+
 import Swal from 'sweetalert2';
+
 import {C101Service} from './c101.service';
-import {VerHsClass} from "../../../model/verHsClass";
-import {VerUpdateClass} from "../../../model/verUpdateClass";
+import {VerHsClass} from '../../../model/verHsClass';
+import {VerUpdateClass} from '../../../model/verUpdateClass';
 
 @Component({
   selector: 'app-c101',
   templateUrl: './c101.component.html',
-  styleUrls: ['./c101.component.css']
 })
-export class C101Component implements OnInit {
+export class C101Component {
 
   form: FormGroup;
   errors = {
@@ -23,33 +24,49 @@ export class C101Component implements OnInit {
     maxlength: 'Maximum Length {0}',
     pattern: 'Please enter information in valid formats.'
   };
-  isValid = true;
+  isValid: boolean = true;
   verSList: VerHsClass[] = [];
   verEList: VerHsClass[] = [];
   verUpdateList: VerUpdateClass[] = [];
-  noneUpdateText = '';
+  noneUpdateText: string = '';
 
   constructor(
     public service: C101Service,
+    private meta: Meta,
     public title: Title,
     private fb: FormBuilder
   ) {
-    this.title.setTitle('Update | JGo');
+    const ogTitle: string = 'Update | JGo';
+    const description: string = 'JGo version upgrade steps.';
+    const keywords: string = 'jgo,update,version,upgrade';
+    const ogUrl: string = 'https://jgo.dev/pkg/update';
+    const metaList: any = [
+      {name: 'description', content: description},
+      {name: 'keywords', content: keywords},
+      {name: 'twitter:title', content: ogTitle},
+      {name: 'twitter:description', content: description},
+      {property: 'og:title', content: ogTitle},
+      {property: 'og:description', content: description},
+      {property: 'og:url', content: ogUrl},
+    ];
+    for (const item of metaList) {
+      this.meta.updateTag(item);
+    }
+    this.title.setTitle(ogTitle);
     this.form = this.fb.group({
       verS: ['', [Validators.required]],
       verE: ['', [Validators.required]],
     });
-  }
-
-  ngOnInit(): void {
-    this.service.queryVerList().then((res) => {
-      this.verSList = res;
-    });
-    this.form.get('verS')?.valueChanges.subscribe(selectedValue => {
-      this.service.queryVerList(selectedValue).then((res) => {
-        this.verEList = res;
-        this.verUpdateList = [];
-        this.form.get('verE')?.setValue('');
+    afterNextRender(() => {
+      this.service.queryVerList().then((res) => {
+        this.verSList = res;
+      });
+      this.form.get('verS')?.valueChanges.subscribe(selectedValue => {
+        this.service.queryVerList(selectedValue).then((res) => {
+          this.verEList = res;
+          this.verUpdateList = [];
+          this.form.get('verE')?.setValue('');
+        });
       });
     });
   }
@@ -65,12 +82,12 @@ export class C101Component implements OnInit {
   errorMsg(name: string): string {
     const self: any = this;
     const ac: AbstractControl | null = this.form.get(name);
-    let msg = '';
+    let msg: string = '';
     if (!ac?.disabled && !ac?.valid && !this.isValid) {
       Object.keys(self.errors).forEach((key: string) => {
         const error = ac?.errors?.[key];
         if (error) {
-          const reg = new RegExp("\\{0\\}");
+          const reg = new RegExp('\\{0\\}');
           switch (key) {
             case 'min':
             case 'max': {

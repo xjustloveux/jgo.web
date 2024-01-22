@@ -1,25 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {afterNextRender, Component} from '@angular/core';
+
 import {MenuService} from './menu.service';
 import {MenuClass} from '../../model/menuClass';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
 
   menu: MenuClass[] | undefined;
-  menuOpen = false;
+  menuOpen: boolean = false;
 
   constructor(public service: MenuService) {
-    this.service.getMenu().then((res) => {
-      this.menu = res;
+    afterNextRender(() => {
+      this.service.getMenu().then((res) => {
+        this.menu = res;
+      });
     });
-  }
-
-  ngOnInit(): void {
   }
 
   bnClick(): void {

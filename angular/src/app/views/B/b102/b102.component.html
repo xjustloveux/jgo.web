@@ -7,7 +7,7 @@
       <div class="card-body">
         <div class="log">
           <ng-container *ngFor="let item of log.job001">
-            <label><b>NAME：</b>{{item.name}}, <b>ID：</b>{{item.id}}, <b>CT_DATE：</b>{{item.ct_date}}</label>
+            <label><b>NAME：</b>{{ item.name }}, <b>ID：</b>{{ item.id }}, <b>CT_DATE：</b>{{ item.ct_date }}</label>
             <br>
           </ng-container>
         </div>
@@ -22,7 +22,7 @@
               <label class="col-3 form-label">id:</label>
               <div class="col-9">
                 <input type="text" class="form-control" formControlName="id" [ngClass]="isInvalid('id')">
-                <div class="invalid-feedback">{{errorMsg('id')}}</div>
+                <div class="invalid-feedback">{{ errorMsg('id') }}</div>
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@
         </div>
         <div class="log">
           <ng-container *ngFor="let item of log.job002">
-            <label><b>NAME：</b>{{item.name}}, <b>ID：</b>{{item.id}}, <b>CT_DATE：</b>{{item.ct_date}}</label>
+            <label><b>NAME：</b>{{ item.name }}, <b>ID：</b>{{ item.id }}, <b>CT_DATE：</b>{{ item.ct_date }}</label>
             <br>
           </ng-container>
         </div>

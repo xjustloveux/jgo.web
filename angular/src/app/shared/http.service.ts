@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+
 import Swal from 'sweetalert2';
+
 import {LoadingService} from '../views/loading/loading.service';
 import {Message} from "../const/message";
 
@@ -28,8 +30,8 @@ export class HttpService {
         this.loadingService.show();
       }
 
-      let params = '';
-      for(const k in json) {
+      let params: string = '';
+      for (const k in json) {
         const val = json[k];
         if (val) {
           params += (params === '' ? '?' : '&') + k + '=' + encodeURIComponent(val);

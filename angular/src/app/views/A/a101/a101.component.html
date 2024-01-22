@@ -9,19 +9,25 @@
     <div class="row mb-3">
       <div class="col-md-3">JGo</div>
       <div class="col-md-9">
-        <a href="https://github.com/xjustloveux/jgo">https://github.com/xjustloveux/jgo</a>
+        <a href="https://github.com/xjustloveux/jgo" title="JGo Repositories" target="_blank">
+          https://github.com/xjustloveux/jgo
+        </a>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-3">JGo Web</div>
       <div class="col-md-9">
-        <a href="https://github.com/xjustloveux/jgo.web">https://github.com/xjustloveux/jgo.web</a>
+        <a href="https://github.com/xjustloveux/jgo.web" title="JGo Demo Web Repositories" target="_blank">
+          https://github.com/xjustloveux/jgo.web
+        </a>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-3">JGoC</div>
       <div class="col-md-9">
-        <a href="https://github.com/xjustloveux/jgoc">https://github.com/xjustloveux/jgoc</a>
+        <a href="https://github.com/xjustloveux/jgoc" title="JGoC Repositories" target="_blank">
+          https://github.com/xjustloveux/jgoc
+        </a>
       </div>
     </div>
   </div>
@@ -37,8 +43,8 @@
     <hr>
     <div>
       <ng-container *ngFor="let item of apiList; let idx = index">
-        <ng-container *ngIf="idx > 0"> , </ng-container>
-        <a [href]="item.url">{{item.name}}</a>
+        <ng-container *ngIf="idx > 0"> ,</ng-container>
+        <a [href]="item.url" [title]="item.name + ' golang documentation'" target="_blank">{{ item.name }}</a>
       </ng-container>
     </div>
   </div>
@@ -60,7 +66,7 @@
               <label class="col-3 form-label">message:</label>
               <div class="col-9">
                 <input type="text" class="form-control" formControlName="content" [ngClass]="isInvalid('content')">
-                <div class="invalid-feedback">{{errorMsg('content')}}</div>
+                <div class="invalid-feedback">{{ errorMsg('content') }}</div>
               </div>
             </div>
           </div>
@@ -86,7 +92,8 @@
           <a href="javascript:void(0);" (click)="nextPage()">></a>
         </div>
         <div class="d-flex float-end">
-          <input type="number" class="form-control page-w me-2" [ngModel]="nowPage" (ngModelChange)="pageChange($event)">
+          <input type="number" class="form-control page-w me-2" [ngModel]="nowPage"
+                 (ngModelChange)="pageChange($event)">
           <button class="btn btn-outline-dark px-3" (click)="pageClick()">Go</button>
         </div>
       </div>

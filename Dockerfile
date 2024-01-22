@@ -14,13 +14,22 @@ RUN         mkdir -p /opt/oracle && \
             ldconfig
 # install time zone
 RUN         apt-get install tzdata
+# install Node.js
+RUN         apt-get install -y curl supervisor && \
+            curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
+            apt-get install -y nodejs
 # copy file
 COPY        jgo /app/
 COPY        dist/ /app/dist/
 COPY        dao/ /app/dao/
 COPY        config/ /app/config/
 COPY        sitemap.xml /app/sitemap.xml
+COPY        supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# env
+ENV         SSR_DIST=/dist/browser
+ENV         SSR_PORT=8888
+ENV         GIN_MODE=release
 # setting
 WORKDIR     /app
 EXPOSE      7777
-ENTRYPOINT  ["/app/jgo"]
+CMD         ["/usr/bin/supervisord"]

@@ -1,19 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {afterNextRender, Component} from '@angular/core';
 
 @Component({
   selector: 'app-global',
   templateUrl: './shared.component.html',
-  styleUrls: ['./shared.component.css']
 })
-export class SharedComponent implements OnInit {
+export class SharedComponent {
+
+  // 是否已經render完畢
+  isRender: boolean = false;
 
   constructor() {
+    afterNextRender(() => {
+      this.isRender = true;
+    });
   }
 
-  ngOnInit(): void {
-  }
-
-  onActivate(event: any) {
+  onActivate(event: any): void {
+    if (!this.isRender) {
+      return;
+    }
     if (typeof window.scroll === 'function') {
       window.scroll(0, 0);
     }

@@ -2,6 +2,7 @@ import {NgModule, Pipe, PipeTransform} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 import {C101Component} from './c101.component';
 
 @Pipe({name: 'sanitizeHtml'})

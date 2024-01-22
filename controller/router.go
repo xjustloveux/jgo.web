@@ -12,6 +12,9 @@ import (
 	"github.com/xjustloveux/jgo.web/controller/c"
 	"github.com/xjustloveux/jgo.web/controller/shared"
 	"github.com/xjustloveux/jgo.web/global"
+	"github.com/xjustloveux/jgo/jlog"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 )
@@ -33,29 +36,32 @@ func initAngular() error {
 
 	global.Router.Static("/assets", global.Conf.Assets)
 	global.Router.StaticFile("./sitemap.xml", "./sitemap.xml")
-	if !global.Dev {
+	if list, err := getAngularFile(); err != nil {
 
-		if list, err := getAngularFile(); err != nil {
+		return err
+	} else {
 
-			return err
+		for _, file := range list {
+
+			global.Router.StaticFile(file, fmt.Sprint("./dist/browser/", file))
+		}
+	}
+	global.Router.NoRoute(func(c *gin.Context) {
+
+		if content, err := getAngularSSR(c.Request.URL.Path); err != nil {
+
+			c.String(http.StatusInternalServerError, err.Error())
 		} else {
 
-			for _, file := range list {
-
-				global.Router.StaticFile(file, fmt.Sprint("./dist/", file))
-			}
+			c.Data(http.StatusOK, "text/html; charset=utf-8", content)
 		}
-		global.Router.NoRoute(func(c *gin.Context) {
-
-			c.File("./dist/index.html")
-		})
-	}
+	})
 	return nil
 }
 
 func getAngularFile() ([]string, error) {
 
-	if file, err := os.Open("./dist"); err != nil {
+	if file, err := os.Open("./dist/browser"); err != nil {
 
 		return nil, err
 	} else {
@@ -82,5 +88,18 @@ func getAngularFile() ([]string, error) {
 			}
 		}
 		return names, nil
+	}
+}
+
+func getAngularSSR(path string) ([]byte, error) {
+
+	if resp, err := http.Get(fmt.Sprint(global.Conf.UrlSSR, path)); err != nil {
+
+		jlog.Error(err)
+		return nil, err
+	} else {
+
+		defer resp.Body.Close()
+		return io.ReadAll(resp.Body)
 	}
 }
