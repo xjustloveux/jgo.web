@@ -6,6 +6,7 @@ package controller
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/xjustloveux/jgo.web/controller/a"
 	"github.com/xjustloveux/jgo.web/controller/b"
@@ -21,6 +22,18 @@ import (
 
 func Init() error {
 
+	global.Router.Use(
+		cors.New(
+			cors.Config{
+				AllowOrigins:     global.Conf.CORS,
+				AllowMethods:     []string{"POST", "GET"},
+				AllowHeaders:     []string{"Content-Type", "Content-Length"},
+				AllowCredentials: true,
+				ExposeHeaders:    []string{"Access-Control-Allow-Headers"},
+			},
+		),
+	)
+	global.Router.TrustedPlatform = "CF-Connecting-IP"
 	a.Init()
 	b.Init()
 	c.Init()
