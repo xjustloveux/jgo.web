@@ -1,6 +1,6 @@
 port: 7777
 autoStartCron: true
-assets: ./dist/assets
+assets: ./dist/browser/assets
 urlSSR: http://localhost:8888
 cors:
   - https://jgo.dev
