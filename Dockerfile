@@ -1,4 +1,4 @@
-FROM        ubuntu:latest
+FROM        ubuntu:23.04
 # install oracle
 RUN         mkdir -p /opt/oracle && \
             cd /opt/oracle && \
